@@ -7,7 +7,6 @@ import { loadMapApi } from "./googlemap/GoogleMapsAPIUrl";
 
 function App() {
   const [scriptLoaded, setScriploaded] = useState(false);
-
   // initialize map on page load
   useEffect(() => {
     const googleMapScript = loadMapApi();
@@ -15,5 +14,6 @@ function App() {
       setScriploaded(true);
                   },true);
   }, []);
-  return (<LoadMap />  ) }
+  return scriptLoaded?(<><LoadMap /> </> ):(<div className="preloader"></div>)
+}
 export default App;

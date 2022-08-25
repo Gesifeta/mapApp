@@ -7,7 +7,6 @@ type home = {
 let visited: home[] = [];
 
 export const LoadMap = () => {
- let loaded="false"
   let [defaultLatLng, setDefaultlatLng] = useState<home>({
     lat: 0,
     lng: 0,
@@ -16,7 +15,7 @@ export const LoadMap = () => {
     lat: 0,
     lng: 0,
   });
-   useEffect(() => {
+  useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -29,7 +28,10 @@ export const LoadMap = () => {
           lng: longitude,
         });
       },
-      () => alert("location not be found, please check if you have restricted location access")
+      () =>
+        alert(
+          "location not be found, please check if you have restricted location access"
+        )
     );
   }, []);
   const randomPlaces = () => {
@@ -49,31 +51,31 @@ export const LoadMap = () => {
   };
   const initMap = () => {
     const map = new google.maps.Map(
-      document.getElementById("map",) as HTMLDivElement,
+      document.getElementById("map") as HTMLDivElement,
       {
         zoom: 4,
         center: { lat: defaultLatLng.lat, lng: defaultLatLng.lng },
       }
     );
-      // place markers on current position
+    // place markers on current position
     const marker = new google.maps.Marker({
       position: { lat: defaultLatLng.lat, lng: defaultLatLng.lng },
       map: map,
     });
   };
 
-// checking whether default latitude is fetched from geolocation API. Then execute initMap()
+  // checking whether default latitude is fetched from geolocation API. Then execute initMap()
   if (defaultLatLng.lat) {
-    initMap(); 
-       }
+    initMap();
+  }
   return (
     <div className="container">
       <div className="map-container">
         <h1>Map Project- By GEMECHU GESIFETA</h1>
-    <div id="map">
-      <div className="preloader"></div>
-    </div>
-                <div className="btn">
+        <div id="map">
+          <div className="preloader"></div>
+        </div>
+        <div className="btn">
           <button className="btn-random" onClick={randomPlaces}>
             Random Location
           </button>
@@ -81,28 +83,28 @@ export const LoadMap = () => {
             My position
           </button>
         </div>
-    
-      {/* used to display visited places by looping through an array of objects */}
-      <div className="visited">
-        <h2>Visited Places</h2>
-        <table style={{ width: "100%" }}>
-          <tbody>
-            <tr>
-              <th>address</th>
-              <th>latitude</th>
-              <th>longitude</th>
-            </tr>
-            {visited.map((item,index) => (
-              <tr key={index}>
-                <td style={{ padding: "15px" }}>?? Requires Geocoder API</td>
-                <td>{item.lat}</td>
-                <td>{item.lng}</td>
+
+        {/* used to display visited places by looping through an array of objects */}
+        <div className="visited">
+          <h2>Visited Places</h2>
+          <table style={{ width: "100%" }}>
+            <tbody>
+              <tr>
+                <th>Address</th>
+                <th>Latitude</th>
+                <th>Longitude</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
+              {visited.map((item, index) => (
+                <tr key={index}>
+                  <td style={{ padding: "15px" }}>?? Requires Geocoder API</td>
+                  <td>{item.lat}</td>
+                  <td>{item.lng}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
-    </div>
-    )
+  );
 };
