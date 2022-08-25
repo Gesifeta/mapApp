@@ -58,7 +58,7 @@ export const LoadMap = () => {
       }
     );
     // place markers on current position
-    const marker = new google.maps.Marker({
+     new google.maps.Marker({
       position: { lat: defaultLatLng.lat, lng: defaultLatLng.lng },
       map: map,
     });
