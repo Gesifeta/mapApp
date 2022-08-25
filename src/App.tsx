@@ -1,28 +1,19 @@
-import React, { useEffect, useState } from 'react'
-// import Map from './map/map';
-import './App.css';
-import "./map/map.css"
-import { loadMapApi } from './map/GoogleMapsUtils';
-import { LoadMap } from './googlemap';
+import React, { useEffect, useState } from "react";
+
+import "./App.css";
+import "./googlemap/map.css";
+import { LoadMap } from "./googlemap/home";
+import { loadMapApi } from "./googlemap/GoogleMapsAPIUrl";
+
 function App() {
-  const [scriptLoaded,setScriploaded]=useState(false);
-  
-  useEffect(()=>{
-    const googleMapScript= loadMapApi();
+  const [scriptLoaded, setScriploaded] = useState(false);
 
-    googleMapScript.addEventListener('load',()=>{
-      setScriploaded(true)
-    })
-  },[])
-
-
-  return (
-    <div className="App"> 
-    <LoadMap/>
-    {/* {scriptLoaded&&(<Map mapType={google.maps.MapTypeId.ROADMAP} mapTypeControl={true}/> )} */}
-  
-    </div> 
-  );
-}
-
+  // initialize map on page load
+  useEffect(() => {
+    const googleMapScript = loadMapApi();
+    googleMapScript.addEventListener("load", () => {
+      setScriploaded(true);
+                  },true);
+  }, []);
+  return (<LoadMap />  ) }
 export default App;
